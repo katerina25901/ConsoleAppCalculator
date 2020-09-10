@@ -8,12 +8,11 @@ public class Parser {
     private int num1;
     private int num2;
     private String operation;
-    private String mathString;
     private boolean isRomanNumeral;
     static String[] arrayOperators = new String[] {"-","\\+","/","\\*"};
 
     public Parser(String input){
-        mathString = input.replaceAll("\\s+", "");
+        String mathString = clarificateInput(input);
         getOperatorType(mathString);
         getNumbers(mathString);
     }
@@ -58,45 +57,41 @@ public class Parser {
         String[] subStr = input.split(delimiter, 2);
         if (RomanArabicConverter.isRomanNumeral(subStr[0]) && RomanArabicConverter.isRomanNumeral(subStr[1])){
             isRomanNumeral = true;
-            num1 = RomanArabicConverter.romanToArab(subStr[0]);
-            num2 = RomanArabicConverter.romanToArab(subStr[1]);
+            num1 = RomanArabicConverter.romanToArabConvert(subStr[0]);
+            num2 = RomanArabicConverter.romanToArabConvert(subStr[1]);
         } else {
             num1 = getIntegerValue(subStr[0]);
             num2 = getIntegerValue(subStr[1]);
         }
-        if (isCorrectInput(num1) && isCorrectInput(num2)) {
+        if (Validator.checkInputValues(num1, num2, isRomanNumeral, delimiter)) {
             this.num1 = num1;
             this.num2 = num2;
         }
     }
 
-    private  int getIntegerValue(String string){
+    private int getIntegerValue(String string){
         try {
             return parseInt(string);
         }
         catch (NumberFormatException ex) {
-            System.err.println(ex.getMessage());
-            System.out.println("Not integer: " + string);
+            System.out.println("Only positive integers or roman number");
             System.exit(0);
             return 0;
         }
     }
 
-    private boolean isCorrectInput(int num){
-        if(num <= 10  && num >= 1 ) {
-            return true;
-        }  else {
-            throw new IllegalArgumentException("Value must be in 1...10");
+    private String clarificateInput(String input) {
+        input = input.replaceAll("\\s+", "");
+        if ((!input.isEmpty())){
+            if (input.startsWith("+")) {
+                input = input.substring(1);
+            }
+            return input;
+        } else {
+            throw new IllegalArgumentException("Empty String");
         }
-    }
 
-    private boolean isCorrectInputFor(int num){
-        if(num <= 10  && num >= 1 ) {
-            return true;
-        }  else {
-            throw new IllegalArgumentException("Value must be in 1...10");
-        }
-    }
 
+    }
 }
 

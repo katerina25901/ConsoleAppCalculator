@@ -6,7 +6,7 @@ public class RomanArabicConverter {
             "IX", "V", "IV", "I"};
     static int[] arab = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
 
-    public static int romanToArab(String roman) {
+    public static int romanToArabConvert(String roman) {
         String romeNumber = roman.toUpperCase(), romeSymbol = "";
         int arabNumber = 0, i = 0, count = 0;
         while ((romeNumber.length() > 0) && (i < rome.length)) {
@@ -18,8 +18,11 @@ public class RomanArabicConverter {
                     romeSymbol = rome[i];
                     count = 1;
                 }
-                if (count > 3) {
-                    throw new IllegalArgumentException(roman + " cannot be converted to a Roman");
+                if ((rome[i].equals("D") || rome[i].equals("L") || rome[i].equals("V")) && (count > 1)) {
+                    throw new IllegalArgumentException("There cant be 2 characters " + rome[i] + " together");
+                }
+                else if (count > 3) {
+                    throw new IllegalArgumentException("There cant be 3 characters " + rome[i] + " together" );
                 }
                 arabNumber += arab[i];
                 romeNumber = romeNumber.substring(rome[i].length());
@@ -32,7 +35,7 @@ public class RomanArabicConverter {
         return arabNumber;
     }
 
-    public static String arabToRoman(int number) {
+    public static String arabToRomanConvert(int number) {
         int i = 0;
         StringBuilder sb = new StringBuilder();
         while ((number > 0) && (i < arab.length)) {

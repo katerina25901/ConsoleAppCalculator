@@ -35,14 +35,8 @@ private String result;
         }
 
         if (isRomanNumeral){
-            String resultString = "0";
-            if (result < 0) {
-                int mod_result = (int)Math.round(Math.abs(result));
-                resultString = "-" + RomanArabicConverter.arabToRoman(mod_result);
-            }
-            else if (result > 0) {
-                resultString = RomanArabicConverter.arabToRoman((int)Math.round(result));
-            }
+            String resultString;
+                resultString = RomanArabicConverter.arabToRomanConvert((int)Math.round(result));
            return resultString;
         } else {
             return String.valueOf(result);
