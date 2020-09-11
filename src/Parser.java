@@ -34,10 +34,11 @@ public class Parser {
     }
 
     private void getOperatorType(String input){
+        String inputSubstring = input.substring(1);
         String operatorType = null;
         for (String arrayOperator : arrayOperators) {
             Pattern p = Pattern.compile(arrayOperator);
-            Matcher m = p.matcher(input);
+            Matcher m = p.matcher(inputSubstring);
             if (m.find()) {
                 operatorType = arrayOperator;
                 break;
@@ -54,7 +55,8 @@ public class Parser {
     private void getNumbers(String input){
         int num1, num2;
         String delimiter = operation;
-        String[] subStr = input.split(delimiter, 2);
+        String[] subStr = input.substring(1).split(delimiter, 2);
+        subStr[0] = input.substring(0,1) + subStr[0];
         if (RomanArabicConverter.isRomanNumeral(subStr[0]) && RomanArabicConverter.isRomanNumeral(subStr[1])){
             isRomanNumeral = true;
             num1 = RomanArabicConverter.romanToArabConvert(subStr[0]);
@@ -74,7 +76,7 @@ public class Parser {
             return parseInt(string);
         }
         catch (NumberFormatException ex) {
-            System.out.println("Only positive integers or roman number");
+            System.out.println("Only positive integers or roman number in input");
             System.exit(0);
             return 0;
         }
@@ -82,16 +84,11 @@ public class Parser {
 
     private String clarificateInput(String input) {
         input = input.replaceAll("\\s+", "");
-        if ((!input.isEmpty())){
-            if (input.startsWith("+")) {
-                input = input.substring(1);
-            }
+        if ((!input.isEmpty()) && input.length() > 2){
             return input;
         } else {
-            throw new IllegalArgumentException("Empty String");
+            throw new IllegalArgumentException("Empty or too short input");
         }
-
-
     }
 }
 
