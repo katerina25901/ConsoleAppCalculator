@@ -23,7 +23,6 @@ public class Output {
         String stringResult;
         if (isRomanNumeral){
             stringResult = RomanArabicConverter.arabToRomanConvert((int)Math.round(result));
-
         } else {
             stringResult = String.format("%.2f", result);
         }

@@ -17,6 +17,7 @@ public class ConsoleWorker {
             System.out.println(findOutput.getStringResult());
         }
     }
+
     public static void greet() {
         System.out.println("Hello! \n" +
                 "If you need to close the application print " + close);

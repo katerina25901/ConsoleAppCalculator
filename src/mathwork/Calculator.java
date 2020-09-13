@@ -14,8 +14,6 @@ public class Calculator {
                 return (double)num1/(double)num2;
             default:
                 throw new IllegalArgumentException("Something wrong");
-
         }
     }
-
 }
