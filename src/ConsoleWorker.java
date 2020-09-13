@@ -1,3 +1,4 @@
+import usrdataconv.Output;
 import java.util.Scanner;
 
 public class ConsoleWorker {
@@ -11,9 +12,9 @@ public class ConsoleWorker {
             System.out.println("Goodbye!");
             System.exit(0);}
         else {
-            Calculator calculator = new Calculator(input);
+            Output findOutput = new Output(input);
             System.out.println("Output: ");
-            System.out.println(calculator.getResult());
+            System.out.println(findOutput.getStringResult());
         }
     }
     public static void greet() {

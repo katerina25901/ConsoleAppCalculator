@@ -1,4 +1,8 @@
+package usrdataconv;
+
 import java.util.Arrays;
+
+import static java.lang.String.valueOf;
 
 public class RomanArabicConverter {
     static String[] romeBasic = { "M", "D", "C", "L",  "X", "V", "I" };
@@ -12,8 +16,12 @@ public class RomanArabicConverter {
         while ((romeNumber.length() > 0) && (i < rome.length)) {
             if (romeNumber.startsWith(rome[i]))
             {
+                if ((rome[i].length() > 1) && ((romeNumber.length() > 2))) {
+                    throw new IllegalArgumentException("There cant be any character after " + rome[i]);
+                }
                 if (rome[i].equals(romeSymbol))
-                {count++;}
+                {count++;
+                }
                 else {
                     romeSymbol = rome[i];
                     count = 1;
@@ -22,16 +30,29 @@ public class RomanArabicConverter {
                     throw new IllegalArgumentException("There cant be 2 characters " + rome[i] + " together");
                 }
                 else if (count > 3) {
-                    throw new IllegalArgumentException("There cant be 3 characters " + rome[i] + " together" );
+                    throw new IllegalArgumentException("There cant be 4 characters " + rome[i] + " together" );
                 }
                 arabNumber += arab[i];
+                String arabString = valueOf(arabNumber);
+                for (int k = 0; k < arab.length; k++) {
+                    if(rome[k].length()>1 && arabString.contains(valueOf(arab[k]))) {
+                        if (roman.toUpperCase().contains(rome[k])) {
+                            break;
+                        }
+                        else {
+                            throw new IllegalArgumentException("You should use " + rome[k] + " for arabian " + arab[k]);
+                        }
+                    }
+                }
                 romeNumber = romeNumber.substring(rome[i].length());
             } else
                 i++;
         }
+
         if (romeNumber.length() > 0) {
             throw new IllegalArgumentException(roman + " cannot be converted to a Roman");
         }
+
         return arabNumber;
     }
 

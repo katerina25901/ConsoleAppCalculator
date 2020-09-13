@@ -1,3 +1,5 @@
+package usrdataconv;
+
 public class Validator {
 
     public static boolean isCorrectInput(int num){
@@ -16,12 +18,12 @@ public class Validator {
         }
     }
 
-    public static boolean checkInputValues(int num1, int num2, boolean isRomanNumeral, String operator) {
-        boolean  check = true;
+    public static boolean checkInputValues(int num1, int num2, boolean isRomanNumeral, char operator) {
+        boolean check = true;
         if (!isCorrectInput(num1) || !isCorrectInput(num2)) {
             check = false;
         }
-        if (operator.contains("-") && isRomanNumeral) {
+        if (operator == ('-') && isRomanNumeral) {
             check = isCorrectInputForRoman(num1, num2);
         }
         return check;
